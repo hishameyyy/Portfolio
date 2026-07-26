@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About | Hisham T</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script>
+(function(){if(localStorage.getItem("theme")==="light"){document.documentElement.classList.add("light");}})();
+</script>
+<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+<div id="loader">
+    <div class="loader-circle"></div>
+</div>
+<div id="progressBar"></div>
+<div id="three-bg"></div>
+<div class="mouse-glow"></div>
+
+<header>
+<div class="logo"></div>
+
+<nav>
+<a href="index.html">Home</a>
+<a href="about.html">About</a>
+<a href="index.html#projects">Projects</a>
+<a href="#" id="contactIcon" aria-label="Show phone number">
+    <i class="fas fa-phone"></i>
+</a>
+<span id="contactNumber" class="contact-number" hidden>+918078327364</span>
+</nav>
+
+<button id="themeBtn" aria-label="Toggle theme">
+    <i class="fas fa-moon"></i>
+</button>
+
+<div id="menuBtn">
+    <i class="fas fa-bars"></i>
+</div>
+</header>
+
+<section class="about" id="about">
+<div class="about-image">
+    <div class="profile-card tilt-card">
+        <img src="image/profile.jpg" alt="Hisham T">
+    </div>
+</div>
+<div class="about-content">
+<h5>ABOUT ME</h5>
+<h2>My Story</h2>
+<p>
+I am a passionate Web Developer who specializes in creating modern,
+responsive and user-friendly websites. My work blends elegant UI design
+with smooth interactions and fast performance.
+</p>
+<p>
+I enjoy collaborating with clients to build premium interfaces that look
+great on every device. I use HTML, CSS, JavaScript, and design systems
+that deliver clean code and polished experiences.
+</p>
+<p>
+When I’m not coding, I keep learning new tools and techniques to stay
+ahead in frontend development and create websites that feel professional
+and engaging.
+</p>
+</div>
+</section>
+
+<footer>
+<div class="socials">
+<a href="https://github.com/hishameyyy" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
+<a href="https://www.linkedin.com/in/hishamt-t/" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
+<a href="https://instagram.com/hishamey_" target="_blank" rel="noopener noreferrer">
+    <i class="fab fa-instagram"></i>
+</a>
+<a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i></a>
+</div>
+<p>© 2026 Hisham T. All Rights Reserved.</p>
+</footer>
+
+<button id="topBtn" aria-label="Back to top">
+<i class="fas fa-arrow-up"></i>
+</button>
+
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r158/three.min.js"></script>
+<script src="script.js"></script>
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+AOS.init({
+    duration:1000,
+    once:true
+});
+</script>
+</body>
+</html>

@@ -971,8 +971,9 @@ footer p {
 @media (max-width: 900px) {
     header {
         position: relative;
-        width: 95%;
+        width: 92%;
         padding: 15px 20px;
+        z-index: 1000;
     }
 
     nav {
@@ -982,27 +983,43 @@ footer p {
     nav.active {
         display: flex !important;
         flex-direction: column;
-        position: absolute;
-        top: 75px;
-        left: 0;
-        width: 100%;
-        background: var(--navbar);
-        backdrop-filter: blur(25px);
-        -webkit-backdrop-filter: blur(25px);
-        border: 1px solid var(--border);
-        border-radius: 20px;
-        padding: 20px;
-        z-index: 1000;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        align-items: center;
+        position: fixed;
+        top: 85px;
+        left: 5%;
+        width: 90%;
+        background: #0d1325;
+        border: 1px solid rgba(0, 229, 255, 0.4);
+        border-radius: 24px;
+        padding: 30px 20px;
+        z-index: 10000;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
+    }
+
+    body.light nav.active {
+        background: #ffffff;
+        border-color: rgba(0, 140, 255, 0.4);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
     }
 
     nav.active a {
-        margin: 10px 0;
-        font-size: 18px;
+        margin: 12px 0;
+        font-size: 20px;
+        font-weight: 600;
+        color: var(--text);
+        text-decoration: none;
+        width: 100%;
+        text-align: center;
+    }
+
+    nav.active a:hover {
+        color: #00e5ff;
     }
 
     #menuBtn {
         display: block;
+        position: relative;
+        z-index: 10001;
     }
 
     .hero-text h1 {

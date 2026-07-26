@@ -139,14 +139,16 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        // Close menu when clicking nav links
+        // Close menu when clicking a nav link
         nav.querySelectorAll("a").forEach(link => {
             link.addEventListener("click", () => {
-                nav.classList.remove("active");
-                const icon = menuBtn.querySelector("i");
-                if (icon) {
-                    icon.classList.remove("fa-xmark");
-                    icon.classList.add("fa-bars");
+                if (nav.classList.contains("active")) {
+                    nav.classList.remove("active");
+                    const icon = menuBtn.querySelector("i");
+                    if (icon) {
+                        icon.classList.remove("fa-xmark");
+                        icon.classList.add("fa-bars");
+                    }
                 }
             });
         });

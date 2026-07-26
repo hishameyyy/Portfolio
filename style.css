@@ -937,6 +937,12 @@ footer p {
         padding: 15px 25px;
     }
 
+    header {
+        position: relative;
+        width: 95%;
+        padding: 15px 20px;
+    }
+
     nav {
         display: none;
     }
@@ -945,14 +951,15 @@ footer p {
         display: flex !important;
         flex-direction: column;
         position: absolute;
-        top: 85px;
-        left: 5%;
-        width: 90%;
+        top: 75px;
+        left: 0;
+        width: 100%;
         background: var(--navbar);
         backdrop-filter: blur(25px);
+        -webkit-backdrop-filter: blur(25px);
         border: 1px solid var(--border);
         border-radius: 20px;
-        padding: 25px;
+        padding: 20px;
         z-index: 1000;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     }
@@ -968,6 +975,7 @@ footer p {
 
     .hero-text h1 {
         font-size: 48px;
+        word-break: break-word;
     }
 
     .hero-text h2 {
@@ -1002,6 +1010,136 @@ footer p {
 @media (max-width: 768px) {
     .mouse-glow {
         display: none;
+    }
+}
+
+/* Mobile Screens (Phones <= 600px) */
+@media (max-width: 600px) {
+    .hero {
+        padding: 30px 0;
+        min-height: 60vh;
+    }
+
+    .hero-text h1 {
+        font-size: 36px;
+    }
+
+    .hero-text h2 {
+        font-size: 20px;
+    }
+
+    .hero-text h4 {
+        font-size: 18px;
+    }
+
+    .hero-text p {
+        font-size: 15px;
+        margin-bottom: 30px;
+    }
+
+    .buttons {
+        gap: 12px;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .btn, .btn1, .btn2 {
+        width: 100%;
+        text-align: center;
+        padding: 14px 20px;
+        font-size: 15px;
+    }
+
+    .about, .skills, .services, .projects, .stats, .resume, .testimonials, .contact {
+        margin: 60px auto;
+        width: 92%;
+    }
+
+    .profile-card {
+        width: 100%;
+        max-width: 280px;
+        height: 360px;
+        margin: 0 auto;
+    }
+
+    .about-content h2,
+    .skills h2,
+    .services h2,
+    .projects h2,
+    .resume h2,
+    .testimonials h2,
+    .contact h2 {
+        font-size: 26px;
+        margin-bottom: 30px;
+    }
+
+    .project-grid,
+    .project-container,
+    .service-container,
+    .testimonial-container {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .stats {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .stat-box {
+        width: 100%;
+        padding: 25px 15px;
+    }
+
+    .stat-box h2 {
+        font-size: 36px;
+    }
+
+    .timeline {
+        padding-left: 20px;
+        border-left-width: 2px;
+    }
+
+    .timeline-item {
+        margin-bottom: 30px;
+    }
+
+    .timeline-item::before {
+        left: -27px;
+        width: 12px;
+        height: 12px;
+        top: 6px;
+    }
+
+    .contact input,
+    .contact textarea {
+        padding: 14px 18px;
+        font-size: 15px;
+    }
+
+    .contact button {
+        padding: 15px;
+        font-size: 15px;
+    }
+
+    #topBtn {
+        bottom: 20px;
+        right: 20px;
+        width: 44px;
+        height: 44px;
+        font-size: 18px;
+    }
+}
+
+/* Extra Small Phones (<= 380px) */
+@media (max-width: 380px) {
+    .hero-text h1 {
+        font-size: 30px;
+    }
+
+    .profile-card {
+        max-width: 240px;
+        height: 310px;
     }
 }
 

@@ -142,7 +142,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 4. MOBILE MENU TOGGLE
     const menuBtn = document.getElementById("menuBtn");
-    const nav = document.querySelector("header nav");
+    const nav = document.getElementById("mobileNav") || document.querySelector(".mobile-nav") || document.querySelector("header nav");
     if (menuBtn && nav) {
         menuBtn.addEventListener("click", (e) => {
             e.stopPropagation();

@@ -1278,6 +1278,10 @@ footer p {
     gap: 18px;
 }
 
+.mobile-nav {
+    display: none;
+}
+
 @media (max-width: 900px) {
     .social-dock {
         display: none !important;
@@ -1303,11 +1307,11 @@ footer p {
         box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08) !important;
     }
 
-    header nav {
+    header .desktop-nav {
         display: none !important;
     }
 
-    header nav.active {
+    .mobile-nav.active {
         display: flex !important;
         flex-direction: column;
         justify-content: center;
@@ -1326,16 +1330,16 @@ footer p {
         overflow-y: auto !important;
     }
 
-    body.light header nav.active {
+    body.light .mobile-nav.active {
         background: #ffffff !important;
         color: #111111 !important;
         border: none !important;
         box-shadow: 0 0 100px rgba(0, 0, 0, 0.2) !important;
     }
 
-    nav.active a {
-        margin: 16px 0 !important;
-        font-size: 24px !important;
+    .mobile-nav.active a {
+        margin: 18px 0 !important;
+        font-size: 26px !important;
         font-weight: 700 !important;
         color: var(--text) !important;
         text-decoration: none !important;
@@ -1345,8 +1349,8 @@ footer p {
         transition: color 0.3s ease, transform 0.3s ease !important;
     }
 
-    nav.active a:hover,
-    nav.active a.active {
+    .mobile-nav.active a:hover,
+    .mobile-nav.active a.active {
         color: #00e5ff !important;
         transform: scale(1.08) !important;
     }

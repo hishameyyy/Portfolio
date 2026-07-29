@@ -473,33 +473,35 @@ if (typeof gsap !== "undefined") {
 
     // Step 4: Hero Animation Timeline
     if (document.querySelector(".hero")) {
+        const isMobile = window.innerWidth <= 768;
         gsap.timeline()
             .from(".hero-text h1", {
                 opacity: 0,
-                y: 100,
+                y: isMobile ? 30 : 100,
                 duration: 1.2,
                 ease: "power4.out"
             })
             .from(".hero-text h2", {
                 opacity: 0,
-                y: 80,
+                y: isMobile ? 25 : 80,
                 duration: 1,
                 ease: "power4.out"
             }, "-=0.8")
             .from(".hero-text p", {
                 opacity: 0,
-                y: 60,
+                y: isMobile ? 20 : 60,
                 duration: 1
             }, "-=0.7")
             .from(".hero-buttons, .buttons", {
                 opacity: 0,
-                y: 40,
+                y: isMobile ? 15 : 40,
                 duration: .8
             }, "-=0.6")
             .from(".hero-image", {
                 opacity: 0,
-                x: 120,
-                scale: .8,
+                x: isMobile ? 0 : 120,
+                y: isMobile ? 30 : 0,
+                scale: .85,
                 duration: 1.2,
                 ease: "power4.out"
             }, "-=1");

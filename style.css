@@ -1554,12 +1554,9 @@ body.light #loader {
 }
 
 body.light header {
-    background: none !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    border: none !important;
-    border-bottom: none !important;
-    box-shadow: none !important;
+    background: transparent;
+    border: none;
+    box-shadow: none;
 }
 
 body.light .service-card,

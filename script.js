@@ -146,10 +146,11 @@ document.addEventListener("DOMContentLoaded", () => {
     if (menuBtn && nav) {
         menuBtn.addEventListener("click", (e) => {
             e.stopPropagation();
-            nav.classList.toggle("active");
+            const isActive = nav.classList.toggle("active");
+            document.body.style.overflow = isActive ? "hidden" : "";
             const icon = menuBtn.querySelector("i");
             if (icon) {
-                if (nav.classList.contains("active")) {
+                if (isActive) {
                     icon.classList.remove("fa-bars");
                     icon.classList.add("fa-xmark");
                 } else {
@@ -163,6 +164,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.addEventListener("click", (e) => {
             if (nav.classList.contains("active") && !nav.contains(e.target) && !menuBtn.contains(e.target)) {
                 nav.classList.remove("active");
+                document.body.style.overflow = "";
                 const icon = menuBtn.querySelector("i");
                 if (icon) {
                     icon.classList.remove("fa-xmark");
@@ -176,6 +178,7 @@ document.addEventListener("DOMContentLoaded", () => {
             link.addEventListener("click", () => {
                 if (nav.classList.contains("active")) {
                     nav.classList.remove("active");
+                    document.body.style.overflow = "";
                     const icon = menuBtn.querySelector("i");
                     if (icon) {
                         icon.classList.remove("fa-xmark");

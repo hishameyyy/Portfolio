@@ -33,14 +33,67 @@ body.light {
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+button,
+a {
+    transition: transform .35s ease, box-shadow .35s ease;
+}
+
+html.lenis,
+html.lenis body {
+    height: auto;
+}
+
+.lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+    overflow: hidden;
+}
+
+html,
+body {
+    height: auto;
 }
 
 body {
-    background: var(--bg);
+    background: linear-gradient(-45deg, #050816, #081229, #111f3d, #050816);
+    background-size: 400% 400%;
+    animation: bgMove 18s ease infinite;
     color: var(--text);
     overflow-x: hidden;
     position: relative;
-    transition: background 0.4s ease, color 0.4s ease;
+    transition: background .4s ease, color .4s ease;
+}
+
+.project-card,
+.service-card,
+.about-card,
+.stat-box,
+.profile-card {
+    transition: background .4s ease, transform .4s ease, box-shadow .4s ease;
+}
+
+@keyframes bgMove {
+    0% {
+        background-position: 0%;
+    }
+
+    50% {
+        background-position: 100%;
+    }
+
+    100% {
+        background-position: 0%;
+    }
 }
 
 p {
@@ -156,10 +209,12 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 18px 35px;
-    background: transparent;
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
-    border-bottom: 1px solid rgba(255, 255, 255, .08);
+    background: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border: none !important;
+    border-bottom: none !important;
+    box-shadow: none !important;
 }
 
 .logo {
@@ -172,35 +227,62 @@ nav {
     display: flex;
     align-items: center;
     gap: 30px;
+    background: transparent !important;
 }
 
 nav a {
+    position: relative;
     color: var(--text);
     text-decoration: none;
     font-weight: 500;
-    transition: color .3s ease, transform .2s ease;
+    transition: .35s;
 }
 
-nav a:hover {
+nav a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 0;
+    height: 2px;
+    background: #00e5ff;
+    transition: .35s;
+}
+
+nav a.active {
     color: #00e5ff;
-    transform: translateY(-2px);
 }
 
-.contact-number {
-    margin-left: 10px;
-    color: #00e5ff;
-    font-weight: 600;
-    font-size: 15px;
-    white-space: nowrap;
-    transition: opacity .3s ease, transform .2s ease;
-    display: none;
-    opacity: 0;
+nav a.active::after {
+    width: 100%;
 }
 
-.contact-number.visible {
-    display: inline-block;
-    opacity: 1;
-    transform: translateY(0);
+#contactIcon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    color: #25d366;
+    text-decoration: none;
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), color 0.3s ease, filter 0.3s ease;
+}
+
+#contactIcon i {
+    font-size: 28px;
+    color: #25d366;
+    filter: drop-shadow(0 2px 8px rgba(37, 211, 102, 0.4));
+    transition: transform 0.35s ease, filter 0.3s ease;
+}
+
+#contactIcon:hover i,
+#contactIcon:hover {
+    transform: scale(1.25) rotate(-8deg);
+    color: #25d366;
+    filter: drop-shadow(0 4px 14px rgba(37, 211, 102, 0.8));
+}
+
+#contactIcon::after {
+    display: none !important;
 }
 
 #themeBtn {
@@ -242,6 +324,30 @@ nav a:hover {
     margin: 0 auto;
     padding: 60px 0;
     background: transparent !important;
+}
+
+.hero-image {
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-15px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.hero-image img {
+    transition: 1s;
+}
+
+.hero-image img:hover {
+    transform: scale(1.05) rotate(-2deg);
 }
 
 .hero-text {
@@ -299,34 +405,16 @@ nav a:hover {
     font-size: 16px;
     font-weight: 600;
     text-decoration: none;
-    transition: transform .4s ease, box-shadow .4s ease, background .3s ease, color .3s ease;
+    transition: transform .45s cubic-bezier(.22,1,.36,1), box-shadow .45s cubic-bezier(.22,1,.36,1), background .45s, color .3s ease;
     display: inline-block;
 }
 
-.btn1 {
-    background: linear-gradient(135deg, #00e5ff, #4f46e5);
-    color: #ffffff;
-    box-shadow: 0 10px 25px rgba(0, 229, 255, .3);
-}
-
-.btn1:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 40px rgba(0, 229, 255, .45);
-}
-
-.btn2 {
-    background: transparent;
-    color: var(--text);
-    border: 2px solid var(--border);
-    backdrop-filter: blur(10px);
-}
-
-.btn2:hover {
-    background: rgba(255, 255, 255, .1);
-    border-color: #00e5ff;
-    color: #00e5ff;
-    transform: translateY(-8px);
-    box-shadow: 0 20px 40px rgba(0, 229, 255, .35);
+.btn:hover,
+.btn1:hover,
+.btn2:hover,
+.project-btn:hover {
+    transform: translateY(-8px) scale(1.05);
+    box-shadow: 0 20px 45px rgba(0, 229, 255, .35);
 }
 
 /* ==========================================================================
@@ -344,7 +432,20 @@ nav a:hover {
     background: transparent !important;
 }
 
-.profile-card {
+@keyframes floating {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-12px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.profile-card,
+.profile-image {
     width: 320px;
     height: 420px;
     flex-shrink: 0;
@@ -355,6 +456,7 @@ nav a:hover {
     border: 1px solid var(--border);
     box-shadow: none;
     transition: 0.4s ease;
+    animation: floating 6s ease-in-out infinite;
 }
 
 .profile-card:hover {
@@ -540,43 +642,100 @@ nav a:hover {
     margin: 10px 0 50px;
 }
 
-.project-grid,
-.project-container {
+/* STEP 2 - Project Grid */
+.projects-grid,
+.project-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 40px;
+    margin-top: 60px;
     justify-content: center;
 }
 
+/* STEP 3 - Premium Card & STEP 10 Floating Effect */
 .project-card {
     position: relative;
-    border-radius: 25px;
-    background: transparent !important;
-    backdrop-filter: none;
-    border: 1px solid var(--border);
-    transition: transform .4s ease, box-shadow .4s ease;
-    transform-style: preserve-3d;
-}
-
-.project-card:hover {
-    box-shadow: 0 15px 40px rgba(0, 229, 255, .25);
-}
-
-.project-image {
-    height: 200px;
     overflow: hidden;
-    border-radius: 20px 20px 0 0;
+    border-radius: 25px;
+    background: rgba(255, 255, 255, .08);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(255, 255, 255, .12);
+    transition: .5s;
+    transform-style: preserve-3d;
+    animation: floatCard 6s ease-in-out infinite;
+}
+
+@keyframes floatCard {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+/* STEP 5 - Image Zoom */
+.project-image {
+    height: 240px;
+    overflow: hidden;
+    position: relative;
 }
 
 .project-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform .6s ease;
+    transition: 1s;
 }
 
-.project-card:hover .project-image img {
-    transform: scale(1.08);
+.project-card:hover img {
+    transform: scale(1.15);
+}
+
+/* STEP 6 - Overlay */
+.project-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .65);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    opacity: 0;
+    transition: .5s;
+    z-index: 2;
+}
+
+.project-card:hover .project-overlay {
+    opacity: 1;
+}
+
+/* STEP 7 - Icons */
+.project-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #00e5ff;
+    color: #000;
+    font-size: 22px;
+    text-decoration: none;
+    transition: .4s;
+}
+
+.project-icon:hover {
+    transform: scale(1.2);
 }
 
 .project-content {
@@ -591,24 +750,42 @@ nav a:hover {
 
 .project-content p {
     line-height: 1.7;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     color: var(--text2);
 }
 
+/* STEP 8 - Tech Stack */
+.tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.tech-stack span {
+    padding: 8px 18px;
+    border-radius: 30px;
+    background: rgba(255, 255, 255, .08);
+    border: 1px solid rgba(255, 255, 255, .12);
+    font-size: 14px;
+    color: #00e5ff;
+}
+
+/* STEP 9 - Button */
 .project-btn {
     display: inline-block;
-    padding: 10px 24px;
-    border-radius: 40px;
+    padding: 12px 30px;
+    border-radius: 50px;
     background: #00e5ff;
     color: #000;
     font-weight: bold;
     text-decoration: none;
-    transition: transform .3s ease, box-shadow .3s ease, background .3s ease;
+    transition: .4s;
 }
 
 .project-btn:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 40px rgba(0, 229, 255, .35);
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 229, 255, .35);
 }
 
 /* ==========================================================================
@@ -897,6 +1074,104 @@ footer {
     }
 }
 
+/* ==========================================================================
+   14.1 FLOATING SOCIAL DOCK & HERO SOCIALS
+   ========================================================================== */
+
+.social-dock {
+    position: fixed;
+    left: 28px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    z-index: 9999;
+    padding: 16px 12px;
+    background: rgba(13, 19, 37, 0.60);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(0, 229, 255, 0.3);
+    border-radius: 50px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 229, 255, 0.15);
+    transition: all 0.4s ease;
+}
+
+.social-dock a {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text);
+    font-size: 19px;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.social-dock a:hover {
+    transform: scale(1.18) translateX(4px);
+    background: #00e5ff;
+    color: #050816;
+    border-color: #00e5ff;
+    box-shadow: 0 0 25px rgba(0, 229, 255, 0.7);
+}
+
+body.light .social-dock {
+    background: rgba(255, 255, 255, 0.75);
+    border-color: rgba(0, 119, 255, 0.3);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+}
+
+body.light .social-dock a {
+    background: rgba(0, 0, 0, 0.04);
+    border-color: rgba(0, 0, 0, 0.1);
+    color: #111111;
+}
+
+body.light .social-dock a:hover {
+    background: #0077ff;
+    color: #ffffff;
+    border-color: #0077ff;
+    box-shadow: 0 0 25px rgba(0, 119, 255, 0.5);
+}
+
+.hero-socials {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+    margin-top: 35px;
+}
+
+.hero-socials a {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text);
+    font-size: 20px;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hero-socials a:hover {
+    transform: translateY(-6px) scale(1.12);
+    background: #00e5ff;
+    color: #050816;
+    border-color: #00e5ff;
+    box-shadow: 0 15px 30px rgba(0, 229, 255, 0.4);
+}
+
 .socials a:hover {
     background: #00e5ff;
     color: #050816;
@@ -910,32 +1185,61 @@ footer p {
 }
 
 /* ==========================================================================
-   15. BACK TO TOP BUTTON
+   15. BACK TO TOP BUTTON & TOAST NOTIFICATION
    ========================================================================== */
 
+#backToTop,
 #topBtn {
     position: fixed;
-    bottom: 30px;
     right: 30px;
-    width: 50px;
-    height: 50px;
-    background: #00e5ff;
-    color: #050816;
+    bottom: 30px;
+    width: 55px;
+    height: 55px;
     border: none;
     border-radius: 50%;
-    font-size: 20px;
+    background: #00e5ff;
+    color: #000;
+    font-size: 22px;
     cursor: pointer;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 10px 25px rgba(0, 229, 255, .4);
-    transition: .3s ease;
+    opacity: 0;
+    visibility: hidden;
+    transition: .35s ease;
     z-index: 999;
+    box-shadow: 0 10px 25px rgba(0, 229, 255, .35);
 }
 
+#backToTop.show,
+#topBtn.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+#backToTop:hover,
 #topBtn:hover {
-    transform: translateY(-5px);
+    transform: translateY(-6px);
     background: #ffffff;
+}
+
+#toast {
+    position: fixed;
+    left: 50%;
+    bottom: 40px;
+    transform: translateX(-50%);
+    padding: 15px 35px;
+    background: #00e5ff;
+    color: #000;
+    font-weight: 600;
+    border-radius: 40px;
+    opacity: 0;
+    visibility: hidden;
+    transition: .4s ease;
+    z-index: 9999;
+    box-shadow: 0 10px 30px rgba(0, 229, 255, 0.4);
+}
+
+#toast.show {
+    opacity: 1;
+    visibility: visible;
 }
 
 /* ==========================================================================
@@ -969,6 +1273,10 @@ footer p {
    ========================================================================== */
 
 @media (max-width: 900px) {
+    .social-dock {
+        display: none !important;
+    }
+
     header {
         position: relative;
         width: 92%;
@@ -988,18 +1296,22 @@ footer p {
         top: 85px;
         left: 5%;
         width: 90%;
-        background: #0d1325;
+        background: rgba(13, 19, 37, 0.70) !important;
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
         border: 1px solid rgba(0, 229, 255, 0.4);
         border-radius: 24px;
         padding: 30px 20px;
         z-index: 10000;
-        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
     }
 
     body.light nav.active {
-        background: #ffffff;
+        background: rgba(255, 255, 255, 0.80) !important;
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
         border-color: rgba(0, 140, 255, 0.4);
-        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
     }
 
     nav.active a {
@@ -1127,8 +1439,12 @@ body.light #loader {
 }
 
 body.light header {
-    background: rgba(255, 255, 255, 0.75);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    background: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border: none !important;
+    border-bottom: none !important;
+    box-shadow: none !important;
 }
 
 body.light .service-card,
@@ -1210,4 +1526,69 @@ body.light .mouse-glow {
 
 body.light footer {
     box-shadow: 0 -15px 40px rgba(0, 119, 255, .10);
+}
+
+/* ==========================================================================
+   19. PERFORMANCE & ANIMATION HARDWARE ACCELERATION
+   ========================================================================== */
+
+.hero,
+section,
+header,
+footer {
+    will-change: transform, opacity;
+}
+
+.service-card,
+.project-card,
+.skill,
+.hero-image {
+    backface-visibility: hidden;
+    transform: translateZ(0);
+}
+
+/*==============================
+THREE BACKGROUND
+==============================*/
+
+#three-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -100;
+    overflow: hidden;
+    background: #050816;
+}
+
+#three-bg canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+header,
+section,
+footer {
+    position: relative;
+    z-index: 10;
+}
+
+/* ALL SECTIONS FULLY TRANSPARENT (NO RECTANGLE BOXES) */
+.hero,
+.about,
+.services,
+.projects,
+.stats,
+.resume,
+.testimonials,
+.contact,
+header,
+footer {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
 }

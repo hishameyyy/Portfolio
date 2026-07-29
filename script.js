@@ -1,7 +1,12 @@
-// Ensure initial theme is applied immediately on load
+// Ensure initial theme is applied immediately on load (Default: Light / White theme)
 (function applyInitialTheme() {
     const savedTheme = localStorage.getItem("theme");
-    if (savedTheme === "light") {
+    if (savedTheme === "dark") {
+        document.documentElement.classList.remove("light");
+        if (document.body) {
+            document.body.classList.remove("light");
+        }
+    } else {
         document.documentElement.classList.add("light");
         if (document.body) {
             document.body.classList.add("light");
@@ -10,13 +15,40 @@
                 document.body.classList.add("light");
             });
         }
-    } else {
-        document.documentElement.classList.remove("light");
-        if (document.body) {
-            document.body.classList.remove("light");
-        }
     }
 })();
+
+/* ===========================
+   LENIS ULTRA-SMOOTH PREMIUM SCROLL
+=========================== */
+
+const lenis = (typeof Lenis !== "undefined") ? new Lenis({
+    duration: 1.4,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Exponential momentum curve for buttery smooth inertia
+    direction: 'vertical',
+    gestureDirection: 'vertical',
+    smoothWheel: true,
+    wheelMultiplier: 1.15,
+    smoothTouch: false,
+    touchMultiplier: 2,
+    infinite: false
+}) : null;
+
+if (lenis && typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
+    lenis.on("scroll", ScrollTrigger.update);
+
+    gsap.ticker.add((time) => {
+        lenis.raf(time * 1000);
+    });
+
+    gsap.ticker.lagSmoothing(0);
+} else if (lenis) {
+    function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+}
 
 document.addEventListener("DOMContentLoaded", () => {
     // 1. LOADER
@@ -154,103 +186,94 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // 5. SMOOTH SCROLL
-    document.querySelectorAll("a").forEach(anchor => {
+    // 5. SMOOTH SCROLL (LENIS)
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener("click", function(e) {
-            if (this.id === "contactIcon" || !this.hash || this.hash === "#") {
-                return;
-            }
+            if (this.id === "contactIcon") return;
+            const targetAttr = this.getAttribute("href");
+            if (!targetAttr || targetAttr === "#") return;
 
-            // Only smooth scroll if anchor points to current page
-            const currentPath = window.location.pathname.replace(/^\//, '');
-            const targetPath = this.pathname.replace(/^\//, '');
-            if (targetPath && targetPath !== currentPath && targetPath !== '') {
-                return;
-            }
-
-            try {
-                const target = document.querySelector(this.hash);
-                if (target) {
-                    e.preventDefault();
+            const target = document.querySelector(targetAttr);
+            if (target) {
+                e.preventDefault();
+                if (lenis) {
+                    lenis.scrollTo(target, {
+                        duration: 1.5
+                    });
+                } else {
                     target.scrollIntoView({ behavior: "smooth" });
                 }
-            } catch (err) {
-                console.warn("Smooth scroll target invalid:", this.hash, err);
             }
         });
     });
 
-    // 6. CONTACT TOGGLE
-    const contactIcon = document.getElementById("contactIcon");
-    const contactNumber = document.getElementById("contactNumber");
-    if (contactIcon && contactNumber) {
-        contactIcon.addEventListener("click", function(event) {
-            event.preventDefault();
-            const isVisible = contactNumber.classList.toggle('visible');
-            if (isVisible) {
-                contactNumber.hidden = false;
-                contactNumber.style.display = 'inline-block';
-                contactIcon.setAttribute('aria-label', 'Hide phone number');
-            } else {
-                contactNumber.hidden = true;
-                contactNumber.style.display = 'none';
-                contactIcon.setAttribute('aria-label', 'Show phone number');
-            }
-        });
-    }
 
-    // 7. BACK TO TOP BUTTON
-    const topBtn = document.getElementById("topBtn");
+
+    // STEP 1 — BACK TO TOP BUTTON (LENIS + STANDALONE)
+    const topBtn = document.getElementById("backToTop") || document.getElementById("topBtn");
     if (topBtn) {
-        window.addEventListener("scroll", () => {
-            if (window.scrollY > 300) {
-                topBtn.style.display = "flex";
-                topBtn.style.alignItems = "center";
-                topBtn.style.justifyContent = "center";
+        const handleTopBtn = () => {
+            const scrollYPos = window.scrollY || document.documentElement.scrollTop;
+            if (scrollYPos > 400) {
+                topBtn.classList.add("show");
             } else {
-                topBtn.style.display = "none";
-            }
-        });
-
-        topBtn.addEventListener("click", () => {
-            window.scrollTo({ top: 0, behavior: "smooth" });
-        });
-    }
-
-    // 8. STATS COUNTER ANIMATION
-    const counters = document.querySelectorAll(".counter");
-    if (counters.length > 0) {
-        let animated = false;
-        const animateCounters = () => {
-            const statsSection = document.querySelector(".stats");
-            if (!statsSection) return;
-            const rect = statsSection.getBoundingClientRect();
-            if (rect.top <= window.innerHeight && rect.bottom >= 0 && !animated) {
-                animated = true;
-                counters.forEach(counter => {
-                    const target = parseInt(counter.getAttribute("data-target"), 10);
-                    if (isNaN(target)) return;
-                    let count = 0;
-                    const duration = 1500;
-                    const stepTime = 30;
-                    const steps = duration / stepTime;
-                    const increment = target / steps;
-
-                    const timer = setInterval(() => {
-                        count += increment;
-                        if (count >= target) {
-                            counter.innerText = target + "+";
-                            clearInterval(timer);
-                        } else {
-                            counter.innerText = Math.ceil(count);
-                        }
-                    }, stepTime);
-                });
+                topBtn.classList.remove("show");
             }
         };
-        window.addEventListener("scroll", animateCounters);
-        animateCounters();
+
+        window.addEventListener("scroll", handleTopBtn);
+        if (typeof lenis !== "undefined" && lenis) {
+            lenis.on("scroll", handleTopBtn);
+        }
+
+        topBtn.addEventListener("click", () => {
+            if (typeof lenis !== "undefined" && lenis) {
+                lenis.scrollTo(0, { duration: 1.2 });
+            } else {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+            }
+        });
     }
+
+    // STEP 4 — ACTIVE NAVIGATION ON SCROLL
+    const sections = document.querySelectorAll("section");
+    const navLinks = document.querySelectorAll("nav a, .nav-links a");
+    if (sections.length > 0 && navLinks.length > 0) {
+        const updateActiveNav = () => {
+            let current = "";
+            const scrollPos = window.scrollY || document.documentElement.scrollTop;
+
+            sections.forEach(section => {
+                const top = section.offsetTop - 150;
+                if (scrollPos >= top && section.id) {
+                    current = section.id;
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove("active");
+                const href = link.getAttribute("href");
+                if (href === "#" + current || href === "index.html#" + current) {
+                    link.classList.add("active");
+                }
+            });
+        };
+
+        window.addEventListener("scroll", updateActiveNav);
+        if (typeof lenis !== "undefined" && lenis) {
+            lenis.on("scroll", updateActiveNav);
+        }
+    }
+
+    // STEP 3 — TOAST NOTIFICATION HELPER
+    window.showToast = function showToast() {
+        const toast = document.getElementById("toast");
+        if (!toast) return;
+        toast.classList.add("show");
+        setTimeout(() => {
+            toast.classList.remove("show");
+        }, 3000);
+    };
 
     // 9. CONTACT FORM SUBMISSION
     const contactForm = document.querySelector(".contact form");
@@ -264,6 +287,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 submitBtn.innerText = "Message Sent! ✓";
                 submitBtn.style.background = "#10b981";
                 submitBtn.disabled = true;
+            }
+
+            if (typeof window.showToast === "function") {
+                window.showToast();
             }
 
             setTimeout(() => {
@@ -302,10 +329,11 @@ document.addEventListener("DOMContentLoaded", () => {
     // 12. VANILLA TILT INITIALIZATION
     if (typeof VanillaTilt !== "undefined") {
         VanillaTilt.init(document.querySelectorAll(".tilt-card, .service-card, .project-card, .testimonial-card, .stat-box, .profile-card"), {
-            max: 10,
-            speed: 400,
+            max: 15,
+            speed: 500,
             glare: true,
-            "max-glare": 0.15
+            "max-glare": 0.2,
+            scale: 1.03
         });
     }
 
@@ -398,43 +426,9 @@ function initWaves() {
     draw();
 }
 
-/* ===========================
-   3D Tilt Effect
-=========================== */
 
-if (typeof VanillaTilt !== "undefined") {
-    VanillaTilt.init(document.querySelectorAll(".tilt-card"),{
 
-        max:18,
 
-        speed:400,
-
-        glare:true,
-
-        "max-glare":0.25,
-
-        perspective:1200,
-
-        scale:1.04
-
-    });
-}
-
-/* ===========================
-   Mouse Glow
-=========================== */
-
-const glow = document.querySelector(".mouse-glow");
-
-if (glow) {
-    document.addEventListener("mousemove",(e)=>{
-
-        glow.style.left=e.clientX+"px";
-
-        glow.style.top=e.clientY+"px";
-
-    });
-}
 
 
 
@@ -442,27 +436,28 @@ if (glow) {
    Magnetic Buttons
 =========================== */
 
-document.querySelectorAll(".btn1, .btn2, .project-btn, button").forEach(btn=>{
-
-    btn.addEventListener("mousemove",(e)=>{
-
-        const rect=btn.getBoundingClientRect();
-
-        const x=e.clientX-rect.left-rect.width/2;
-
-        const y=e.clientY-rect.top-rect.height/2;
-
-        btn.style.transform=`translate(${x*0.15}px,${y*0.15}px)`;
-
+document.querySelectorAll(".btn1, .btn2, .project-btn").forEach(btn => {
+    btn.addEventListener("mousemove", (e) => {
+        const rect = btn.getBoundingClientRect();
+        const x = (e.clientX - rect.left - rect.width / 2) * 0.12;
+        const y = (e.clientY - rect.top - rect.height / 2) * 0.12;
+        btn.style.transform = `translate(${x}px, ${y - 4}px) scale(1.04)`;
     });
 
-    btn.addEventListener("mouseleave",()=>{
-
-        btn.style.transform="translate(0,0)";
-
+    btn.addEventListener("mouseleave", () => {
+        btn.style.transform = "";
     });
-
 });
+
+// Step 9: Parallax Effect on Hero Image
+const heroImage = document.querySelector(".hero-image");
+if (heroImage) {
+    document.addEventListener("mousemove", (e) => {
+        const x = (e.clientX / window.innerWidth - .5) * 20;
+        const y = (e.clientY / window.innerHeight - .5) * 20;
+        heroImage.style.transform = `translate(${x}px, ${y}px)`;
+    });
+}
 
 /* ===========================
    GSAP Animations
@@ -473,99 +468,216 @@ if (typeof gsap !== "undefined") {
         gsap.registerPlugin(ScrollTrigger);
     }
 
-    // Step 2: Hero Animation
-    if (document.querySelector(".hero-text")) {
-        gsap.from(".hero-text", {
+    // Step 4: Hero Animation Timeline
+    if (document.querySelector(".hero")) {
+        gsap.timeline()
+            .from(".hero-text h1", {
+                opacity: 0,
+                y: 100,
+                duration: 1.2,
+                ease: "power4.out"
+            })
+            .from(".hero-text h2", {
+                opacity: 0,
+                y: 80,
+                duration: 1,
+                ease: "power4.out"
+            }, "-=0.8")
+            .from(".hero-text p", {
+                opacity: 0,
+                y: 60,
+                duration: 1
+            }, "-=0.7")
+            .from(".hero-buttons, .buttons", {
+                opacity: 0,
+                y: 40,
+                duration: .8
+            }, "-=0.6")
+            .from(".hero-image", {
+                opacity: 0,
+                x: 120,
+                scale: .8,
+                duration: 1.2,
+                ease: "power4.out"
+            }, "-=1");
+    }
+
+    // Navbar & Social Dock Animation
+    if (document.querySelector("header")) {
+        gsap.from("header", {
+            y: -100,
             opacity: 0,
-            y: 80,
+            duration: 1,
+            ease: "power4.out"
+        });
+    }
+
+    if (document.querySelector(".social-dock")) {
+        gsap.from(".social-dock", {
+            x: -80,
+            opacity: 0,
             duration: 1.2,
+            delay: 0.8,
             ease: "power4.out"
         });
     }
 
-    if (document.querySelector(".hero-image")) {
-        gsap.from(".hero-image", {
+    if (document.querySelector(".hero-socials")) {
+        gsap.from(".hero-socials a", {
+            y: 30,
             opacity: 0,
-            x: 150,
-            duration: 1.4,
+            duration: 0.8,
+            delay: 1,
+            stagger: 0.1,
             ease: "power4.out"
         });
     }
 
-    // Step 3: Animate Every Section
-    document.querySelectorAll("section").forEach(section => {
-        gsap.from(section, {
+    // Step 6: About Section
+    if (document.querySelector(".about")) {
+        if (document.querySelector(".about-content, .about-text")) {
+            gsap.from(".about-content, .about-text", {
+                scrollTrigger: {
+                    trigger: ".about",
+                    start: "top 80%"
+                },
+                x: -100,
+                opacity: 0,
+                duration: 1.2
+            });
+        }
+
+        if (document.querySelector(".about-image")) {
+            gsap.from(".about-image", {
+                scrollTrigger: {
+                    trigger: ".about",
+                    start: "top 80%"
+                },
+                x: 100,
+                opacity: 0,
+                duration: 1.2
+            });
+        }
+    }
+
+    // Step 7: Services Animation
+    if (document.querySelector(".services")) {
+        gsap.from(".service-card", {
             scrollTrigger: {
-                trigger: section,
-                start: "top 80%",
-                toggleActions: "play none none none"
+                trigger: ".services",
+                start: "top 75%"
             },
             opacity: 0,
             y: 80,
+            stagger: .2,
             duration: 1,
-            ease: "power3.out"
+            ease: "back.out(1.4)"
         });
-    });
+    }
 
-    // Step 4: Animate Cards
-    gsap.utils.toArray(".service-card, .project-card, .testimonial-card").forEach(card => {
-        gsap.from(card, {
+    // Step 11: Project Cards GSAP Animation
+    if (document.querySelector(".projects")) {
+        gsap.from(".project-card", {
             scrollTrigger: {
-                trigger: card,
+                trigger: ".projects",
+                start: "top 80%"
+            },
+            opacity: 0,
+            y: 120,
+            stagger: .25,
+            duration: 1,
+            ease: "power4.out"
+        });
+    }
+
+    // Step 9: Skills Animation
+    if (document.querySelector(".skills")) {
+        gsap.from(".skill", {
+            scrollTrigger: {
+                trigger: ".skills",
+                start: "top 80%"
+            },
+            opacity: 0,
+            x: -80,
+            stagger: .15,
+            duration: .8
+        });
+    }
+
+    // Step 10: Contact Section
+    if (document.querySelector(".contact")) {
+        gsap.from(".contact", {
+            scrollTrigger: {
+                trigger: ".contact",
+                start: "top 85%"
+            },
+            opacity: 0,
+            y: 80,
+            duration: 1
+        });
+    }
+
+    // Step 11: Footer
+    if (document.querySelector("footer")) {
+        gsap.from("footer", {
+            scrollTrigger: {
+                trigger: "footer",
+                start: "top 95%"
+            },
+            opacity: 0,
+            y: 50,
+            duration: 1
+        });
+    }
+
+    // Animate Statistics & Counter Numbers
+    if (document.querySelector(".stats")) {
+        gsap.from(".stat-box", {
+            scrollTrigger: {
+                trigger: ".stats",
                 start: "top 85%"
             },
             opacity: 0,
             y: 50,
-            scale: .9,
-            duration: .8,
-            ease: "back.out(1.4)"
-        });
-    });
-
-    // Step 5: Animate Statistics
-    if (document.querySelector(".stat-box")) {
-        gsap.from(".stat-box", {
-            scrollTrigger: {
-                trigger: ".stats"
-            },
-            opacity: 0,
-            scale: .5,
+            scale: .85,
             stagger: .2,
-            duration: 1
+            duration: 1,
+            ease: "power3.out"
         });
-    }
 
-    // Step 6: Animate Skills
-    if (document.querySelector(".skill")) {
-        gsap.from(".skill", {
-            scrollTrigger: {
-                trigger: ".skills"
-            },
-            opacity: 0,
-            x: -100,
-            stagger: .2,
-            duration: 1
-        });
-    }
+        document.querySelectorAll(".counter").forEach(counter => {
+            const targetVal = parseInt(counter.getAttribute("data-target"), 10);
+            if (isNaN(targetVal)) return;
 
-    // Step 7: Animate Buttons
-    if (document.querySelector(".btn1, .btn2")) {
-        gsap.from(".btn1, .btn2", {
-            opacity: 0,
-            y: 30,
-            delay: .8,
-            stagger: .2,
-            duration: .8
+            const countObj = { val: 0 };
+            gsap.to(countObj, {
+                val: targetVal,
+                duration: 1.8,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: ".stats",
+                    start: "top 85%",
+                    once: true
+                },
+                onUpdate: () => {
+                    counter.innerText = Math.ceil(countObj.val) + "+";
+                },
+                onComplete: () => {
+                    counter.innerText = targetVal + "+";
+                }
+            });
         });
     }
 }
 
 /*============================
-Three.js Scene
+Three.js Particle & Sphere Scene
 =============================*/
 
 if (typeof THREE !== "undefined" && document.getElementById("three-bg")) {
     const container = document.getElementById("three-bg");
+    container.innerHTML = ""; // Clear existing elements
+
     const scene = new THREE.Scene();
 
     const camera = new THREE.PerspectiveCamera(
@@ -574,108 +686,91 @@ if (typeof THREE !== "undefined" && document.getElementById("three-bg")) {
         0.1,
         1000
     );
+    camera.position.z = 8;
 
     const renderer = new THREE.WebGLRenderer({
         alpha: true,
         antialias: true
     });
 
-    renderer.setSize(
-        window.innerWidth,
-        window.innerHeight
-    );
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(window.innerWidth, window.innerHeight);
 
     container.appendChild(renderer.domElement);
 
-    camera.position.z = 4;
+    // Step 5 – Create Particle Field
+    const particleCount = 3000;
+    const positions = [];
 
-    // Step 6 – Create a glowing sphere
-    const geometry = new THREE.IcosahedronGeometry(
-        1,
-        32
-    );
-
-    const material = new THREE.MeshStandardMaterial({
-        color: 0x00e5ff,
-        wireframe: true,
-        emissive: 0x00e5ff,
-        emissiveIntensity: 0.5
-    });
-
-    const sphere = new THREE.Mesh(
-        geometry,
-        material
-    );
-
-    window.sphere = sphere;
-    if (document.body.classList.contains("light")) {
-        sphere.material.color.setHex(0x0077ff);
-        sphere.material.emissive.setHex(0x0077ff);
-        sphere.material.emissiveIntensity = 0.35;
+    for (let i = 0; i < particleCount; i++) {
+        positions.push(
+            (Math.random() - 0.5) * 40,
+            (Math.random() - 0.5) * 40,
+            (Math.random() - 0.5) * 40
+        );
     }
 
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute(
+        'position',
+        new THREE.Float32BufferAttribute(positions, 3)
+    );
+
+    const material = new THREE.PointsMaterial({
+        color: 0x00e5ff,
+        size: 0.05,
+        transparent: true,
+        opacity: 0.8
+    });
+
+    const particles = new THREE.Points(geometry, material);
+    scene.add(particles);
+
+    // Step 6 – Add a Floating Wireframe Sphere
+    const sphere = new THREE.Mesh(
+        new THREE.IcosahedronGeometry(1.5, 3),
+        new THREE.MeshBasicMaterial({
+            wireframe: true,
+            color: 0xffffff
+        })
+    );
     scene.add(sphere);
 
-    // Step 7 – Lights
-    const light1 = new THREE.PointLight(
-        0xffffff,
-        3
-    );
+    // Step 7 – Lighting
+    const ambient = new THREE.AmbientLight(0xffffff, 1);
+    scene.add(ambient);
 
-    light1.position.set(
-        5,
-        5,
-        5
-    );
+    // Step 8 – Mouse Interaction
+    const mouse = { x: 0, y: 0 };
+    document.addEventListener("mousemove", (e) => {
+        mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+    });
 
-    scene.add(light1);
-
-    const light2 = new THREE.AmbientLight(
-        0xffffff,
-        0.5
-    );
-
-    scene.add(light2);
-
-    // Step 8 – Animation
+    // Step 9 – Animate
     function animate() {
         requestAnimationFrame(animate);
+
+        particles.rotation.y += 0.0007;
+        particles.rotation.x += 0.0003;
 
         sphere.rotation.x += 0.003;
         sphere.rotation.y += 0.005;
 
-        renderer.render(
-            scene,
-            camera
-        );
-    }
+        camera.position.x += (mouse.x * 1.5 - camera.position.x) * 0.03;
+        camera.position.y += (mouse.y * 1.5 - camera.position.y) * 0.03;
+        camera.lookAt(scene.position);
 
+        renderer.render(scene, camera);
+    }
     animate();
 
-    // Step 9 – Resize support
-    window.addEventListener(
-        "resize",
-        () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(
-                window.innerWidth,
-                window.innerHeight
-            );
-        }
-    );
-
-    // Step 10 – Mouse Interaction
-    document.addEventListener(
-        "mousemove",
-        (event) => {
-            const mouseX = (event.clientX / window.innerWidth) - 0.5;
-            const mouseY = (event.clientY / window.innerHeight) - 0.5;
-
-            sphere.rotation.y = mouseX * 2;
-            sphere.rotation.x = mouseY * 2;
-        }
-    );
+    // Step 10 – Resize
+    window.addEventListener("resize", () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    });
 }
 
 /* ===========================

@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Portfolio of Hisham T - Web Developer & Frontend Engineer crafting modern, responsive, and high-performance websites with elegant UI/UX design and interactive 3D graphics.">
 <title>Hisham T | Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,13 +15,20 @@
 <!-- AOS -->
 <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
 </head>
-<body>
+<body class="light">
 <div id="loader">
     <div class="loader-circle"></div>
 </div>
 <div id="progressBar"></div>
 <div id="three-bg"></div>
 <div class="mouse-glow"></div>
+
+<div class="social-dock">
+    <a href="https://github.com/hishameyyy" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
+    <a href="https://www.linkedin.com/in/hishamt-t/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+    <a href="https://instagram.com/hishamey_" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+    <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+</div>
 
 <header>
 
@@ -34,10 +42,9 @@
 
 <a href="#projects">Projects</a>
 
-<a href="#" id="contactIcon" aria-label="Show phone number">
-    <i class="fas fa-phone"></i>
+<a href="https://wa.me/918078327364" target="_blank" rel="noopener noreferrer" id="contactIcon" aria-label="Contact on WhatsApp">
+    <i class="fab fa-whatsapp"></i>
 </a>
-<span id="contactNumber" class="contact-number" hidden>+918078327364</span>
 
 </nav>
 
@@ -62,30 +69,37 @@
 <span id="typing"></span>
 </h2>
 
-
 <p>
-
 Building beautiful websites with modern UI,
 animations and responsive design.
-
 </p>
 
-<div class="buttons">
+<div class="buttons hero-buttons">
 
-<a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=hishamtqa@gmail.com&su=Hiring%20Request" target="_blank" rel="noopener noreferrer" class="btn1">
-
+<a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=hishamtqa@gmail.com&su=Hiring%20Request" target="_blank" rel="noopener noreferrer" class="btn1 btn">
 Hire Me
-
 </a>
 
 <a href="cv.html" target="_blank" rel="noopener noreferrer" class="btn2">
-    Download CV
+Download CV
 </a>
 
 </div>
+
+<div class="hero-socials">
+    <a href="https://github.com/hishameyyy" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
+    <a href="https://www.linkedin.com/in/hishamt-t/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+    <a href="https://instagram.com/hishamey_" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+    <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
 </div>
 
+</div>
 
+<div class="hero-image">
+    <div class="profile-card tilt-card">
+        <img src="image/profile.jpg" alt="Hisham T" loading="lazy">
+    </div>
+</div>
 
 </section>
 
@@ -98,7 +112,7 @@ Hire Me
 
     <div class="profile-card tilt-card">
 
-        <img src="image/profile.jpg" alt="Hisham T">
+        <img src="image/profile.jpg" alt="Hisham T" loading="lazy">
 
     </div>
 
@@ -204,13 +218,21 @@ and clean code.
 <h5>MY WORK</h5>
 <h2>Featured Projects</h2>
 
-<div class="project-grid">
+<div class="projects-grid project-grid">
 
 <div class="project-card tilt-card">
 
     <div class="project-image">
 
-        <img src="images/project1.jpg" alt="Project">
+        <img src="images/portfolio_project.png" alt="Portfolio Website UI" loading="lazy">
+
+        <div class="project-overlay">
+
+            <a href="#" class="project-icon" aria-label="View Demo"><i class="fas fa-eye"></i></a>
+
+            <a href="https://github.com/hishameyyy" target="_blank" rel="noopener noreferrer" class="project-icon" aria-label="View Code"><i class="fab fa-github"></i></a>
+
+        </div>
 
     </div>
 
@@ -219,12 +241,23 @@ and clean code.
         <h3>Portfolio Website</h3>
 
         <p>
-            Modern responsive portfolio with
-            Glassmorphism and animations.
+            Modern responsive website with
+            Glassmorphism, GSAP,
+            Three.js and smooth animations.
         </p>
 
+        <div class="tech-stack">
+
+            <span>HTML</span>
+            <span>CSS</span>
+            <span>JavaScript</span>
+            <span>GSAP</span>
+            <span>Three.js</span>
+
+        </div>
+
         <a href="#" class="project-btn">
-            View Project
+            Live Demo
         </a>
 
     </div>
@@ -235,7 +268,15 @@ and clean code.
 
     <div class="project-image">
 
-        <img src="images/project1.jpg" alt="Business Landing Page">
+        <img src="images/business_project.png" alt="Business Landing Page UI" loading="lazy">
+
+        <div class="project-overlay">
+
+            <a href="#" class="project-icon" aria-label="View Demo"><i class="fas fa-eye"></i></a>
+
+            <a href="https://github.com/hishameyyy" target="_blank" rel="noopener noreferrer" class="project-icon" aria-label="View Code"><i class="fab fa-github"></i></a>
+
+        </div>
 
     </div>
 
@@ -244,11 +285,21 @@ and clean code.
         <h3>Business Landing Page</h3>
 
         <p>
-            Professional startup landing page with modern UI.
+            Professional startup landing page with analytics dashboard,
+            modern UI/UX design, and clean architecture.
         </p>
 
+        <div class="tech-stack">
+
+            <span>HTML</span>
+            <span>CSS</span>
+            <span>JavaScript</span>
+            <span>UI/UX</span>
+
+        </div>
+
         <a href="#" class="project-btn">
-            View Project
+            Live Demo
         </a>
 
     </div>
@@ -259,7 +310,15 @@ and clean code.
 
     <div class="project-image">
 
-        <img src="images/project1.jpg" alt="E-Commerce UI">
+        <img src="images/ecommerce_project.png" alt="E-Commerce UI" loading="lazy">
+
+        <div class="project-overlay">
+
+            <a href="#" class="project-icon" aria-label="View Demo"><i class="fas fa-eye"></i></a>
+
+            <a href="https://github.com/hishameyyy" target="_blank" rel="noopener noreferrer" class="project-icon" aria-label="View Code"><i class="fab fa-github"></i></a>
+
+        </div>
 
     </div>
 
@@ -268,11 +327,21 @@ and clean code.
         <h3>E-Commerce UI</h3>
 
         <p>
-            Premium shopping website interface with clean design.
+            Premium shopping website interface with product grid cards,
+            shopping cart, and dark luxury aesthetic.
         </p>
 
+        <div class="tech-stack">
+
+            <span>HTML</span>
+            <span>CSS</span>
+            <span>JavaScript</span>
+            <span>Responsive</span>
+
+        </div>
+
         <a href="#" class="project-btn">
-            View Project
+            Live Demo
         </a>
 
     </div>
@@ -288,17 +357,17 @@ and clean code.
 <section class="stats">
 
 <div class="stat-box tilt-card">
-<h2 class="counter" data-target="20">0</h2>
+<h2 class="counter" data-target="20">20+</h2>
 <p>Projects</p>
 </div>
 
 <div class="stat-box tilt-card">
-<h2 class="counter" data-target="15">0</h2>
+<h2 class="counter" data-target="15">15+</h2>
 <p>Clients</p>
 </div>
 
 <div class="stat-box tilt-card">
-<h2 class="counter" data-target="1">0</h2>
+<h2 class="counter" data-target="1">1+</h2>
 <p>Years Learning</p>
 </div>
 
@@ -390,35 +459,26 @@ and clean code.
 
 <footer>
 
-<div class="socials">
-
-<a href="https://github.com/hishameyyy" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
-
-<a href="https://www.linkedin.com/in/hishamt-t/" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
-
-<a href="https://instagram.com/hishamey_" target="_blank" rel="noopener noreferrer">
-    <i class="fab fa-instagram"></i>
-</a>
-
-<a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i></a>
-
-</div>
-
 <p>© 2026 Hisham T. All Rights Reserved.</p>
 
 </footer>
 
 <!-- BACK TO TOP -->
 
-<button id="topBtn" aria-label="Back to top">
+<button id="backToTop" aria-label="Back to top">
 <i class="fas fa-arrow-up"></i>
 </button>
+
+<div id="toast">
+Message Sent Successfully
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r158/three.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.16/dist/lenis.min.js"></script>
 <script src="script.js"></script>
 <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 

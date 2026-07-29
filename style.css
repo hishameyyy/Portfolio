@@ -1321,20 +1321,22 @@ footer p {
         left: 0 !important;
         width: 100vw !important;
         height: 100vh !important;
-        background: #050816 !important;
+        background: rgba(5, 8, 22, 0.78) !important;
+        backdrop-filter: blur(30px) !important;
+        -webkit-backdrop-filter: blur(30px) !important;
         border: none !important;
         border-radius: 0 !important;
         padding: 60px 20px !important;
         z-index: 999999 !important;
-        box-shadow: 0 0 100px rgba(0, 0, 0, 0.95) !important;
         overflow-y: auto !important;
     }
 
     body.light .mobile-nav.active {
-        background: #ffffff !important;
+        background: rgba(255, 255, 255, 0.82) !important;
+        backdrop-filter: blur(30px) !important;
+        -webkit-backdrop-filter: blur(30px) !important;
         color: #111111 !important;
         border: none !important;
-        box-shadow: 0 0 100px rgba(0, 0, 0, 0.2) !important;
     }
 
     .mobile-nav.active a {

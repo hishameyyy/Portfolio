@@ -1287,31 +1287,28 @@ footer p {
         display: none !important;
     }
 
-    header {
+    header,
+    body.light header {
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         padding: 14px 22px;
         z-index: 100000;
-        background: rgba(5, 8, 22, 0.95) !important;
-        backdrop-filter: blur(20px) !important;
-        -webkit-backdrop-filter: blur(20px) !important;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
-        box-shadow: 0 4px 25px rgba(0, 0, 0, 0.5) !important;
-    }
-
-    body.light header {
-        background: rgba(255, 255, 255, 0.96) !important;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
-        box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08) !important;
+        background: transparent !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        border: none !important;
+        border-bottom: none !important;
+        box-shadow: none !important;
     }
 
     header .desktop-nav {
         display: none !important;
     }
 
-    .mobile-nav.active {
+    .mobile-nav.active,
+    body.light .mobile-nav.active {
         display: flex !important;
         flex-direction: column;
         justify-content: center;
@@ -1321,22 +1318,35 @@ footer p {
         left: 0 !important;
         width: 100vw !important;
         height: 100vh !important;
-        background: rgba(5, 8, 22, 0.78) !important;
-        backdrop-filter: blur(30px) !important;
-        -webkit-backdrop-filter: blur(30px) !important;
+        background: transparent !important;
+        backdrop-filter: blur(25px) !important;
+        -webkit-backdrop-filter: blur(25px) !important;
         border: none !important;
         border-radius: 0 !important;
         padding: 60px 20px !important;
         z-index: 999999 !important;
+        box-shadow: none !important;
         overflow-y: auto !important;
     }
 
-    body.light .mobile-nav.active {
-        background: rgba(255, 255, 255, 0.82) !important;
-        backdrop-filter: blur(30px) !important;
-        -webkit-backdrop-filter: blur(30px) !important;
-        color: #111111 !important;
+    .project-card,
+    .service-card,
+    .stat-box,
+    .testimonial-card,
+    .profile-card,
+    .hero,
+    .about,
+    .services,
+    .projects,
+    .stats,
+    .resume,
+    .testimonials,
+    .contact {
+        background: transparent !important;
         border: none !important;
+        box-shadow: none !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
     }
 
     .mobile-nav.active a {

@@ -770,7 +770,7 @@ body.light .project-badge {
 }
 
 .project-content {
-    padding: 24px;
+    padding: 24px 24px 26px 24px;
     text-align: left;
 }
 
@@ -784,7 +784,7 @@ body.light .project-badge {
 .project-content p {
     font-size: 14px;
     line-height: 1.6;
-    margin-bottom: 18px;
+    margin-bottom: 16px;
     color: var(--text2);
 }
 
@@ -793,7 +793,7 @@ body.light .project-badge {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-    margin: 18px 0 22px 0;
+    margin: 16px 0 0 0;
 }
 
 .tech-stack span {

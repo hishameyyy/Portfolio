@@ -1269,7 +1269,7 @@ footer p {
 }
 
 /* ==========================================================================
-   17. RESPONSIVE MEDIA QUERIES & MOBILE OPTIMIZATIONS
+   17. RESPONSIVE MEDIA QUERIES & MOBILE OVERLAP FIXES
    ========================================================================== */
 
 @media (max-width: 900px) {
@@ -1279,20 +1279,20 @@ footer p {
 
     header {
         position: fixed;
-        top: 15px;
+        top: 12px;
         left: 4%;
         width: 92%;
         padding: 12px 20px;
         z-index: 10000;
-        background: rgba(13, 19, 37, 0.85);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(13, 19, 37, 0.90);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.14);
         border-radius: 20px;
     }
 
     body.light header {
-        background: rgba(255, 255, 255, 0.88);
+        background: rgba(255, 255, 255, 0.92);
         border-color: rgba(0, 0, 0, 0.12);
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
     }
@@ -1306,10 +1306,12 @@ footer p {
         flex-direction: column;
         align-items: center;
         position: fixed;
-        top: 75px;
+        top: 70px;
         left: 4%;
         width: 92%;
-        background: rgba(13, 19, 37, 0.95) !important;
+        max-height: calc(100vh - 90px);
+        overflow-y: auto;
+        background: rgba(13, 19, 37, 0.96) !important;
         backdrop-filter: blur(25px);
         -webkit-backdrop-filter: blur(25px);
         border: 1px solid rgba(0, 229, 255, 0.4);
@@ -1320,7 +1322,7 @@ footer p {
     }
 
     body.light nav.active {
-        background: rgba(255, 255, 255, 0.95) !important;
+        background: rgba(255, 255, 255, 0.96) !important;
         backdrop-filter: blur(25px);
         -webkit-backdrop-filter: blur(25px);
         border-color: rgba(0, 140, 255, 0.4);
@@ -1348,22 +1350,44 @@ footer p {
     }
 
     .hero {
-        padding-top: 110px;
-        gap: 30px;
+        padding-top: 140px;
+        padding-bottom: 60px;
+        gap: 40px;
         flex-direction: column;
+        min-height: auto;
+    }
+
+    .hero-text {
+        width: 100%;
     }
 
     .hero-text h1 {
         font-size: clamp(32px, 7.5vw, 56px);
+        line-height: 1.2;
     }
 
     .hero-text h2 {
         font-size: clamp(20px, 4vw, 30px);
+        margin-bottom: 16px;
+    }
+
+    .hero-image {
+        margin-top: 10px;
     }
 
     .about {
-        gap: 30px;
+        gap: 40px;
         flex-direction: column;
+        margin: 80px auto;
+        padding: 0;
+    }
+
+    .about-image {
+        margin: 0 auto;
+    }
+
+    .about-content {
+        text-align: center;
     }
 
     .about-content h2,
@@ -1374,12 +1398,13 @@ footer p {
     .testimonials h2,
     .contact h2 {
         font-size: clamp(26px, 5vw, 36px);
+        line-height: 1.3;
     }
 
     .projects-grid,
     .project-grid {
         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 25px;
+        gap: 30px;
     }
 }
 
@@ -1388,26 +1413,34 @@ footer p {
         display: none;
     }
 
+    .hero {
+        padding-top: 135px;
+        padding-bottom: 40px;
+        gap: 35px;
+    }
+
     .projects-grid,
     .project-grid {
         grid-template-columns: 1fr;
-        gap: 25px;
+        gap: 30px;
     }
 
     .project-card {
         max-width: 100%;
+        margin: 0 auto;
     }
 
     .service-container,
     .testimonial-container {
         grid-template-columns: 1fr;
-        gap: 20px;
+        gap: 25px;
     }
 
     .stats {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
         gap: 15px;
+        margin: 60px auto;
     }
 
     .stat-box {
@@ -1417,6 +1450,7 @@ footer p {
     .profile-card {
         width: 260px;
         height: 350px;
+        margin: 0 auto;
     }
 
     #backToTop,
@@ -1435,6 +1469,18 @@ footer p {
         font-size: 14px;
         text-align: center;
     }
+
+    .contact form {
+        width: 100%;
+        max-width: 100%;
+        padding: 0 10px;
+    }
+
+    .contact form input,
+    .contact form textarea {
+        width: 100%;
+        box-sizing: border-box;
+    }
 }
 
 /* Extra Small Mobile (<= 480px) */
@@ -1444,6 +1490,11 @@ footer p {
         left: 3%;
         width: 94%;
         padding: 10px 15px;
+    }
+
+    .hero {
+        padding-top: 125px;
+        gap: 30px;
     }
 
     .hero-text h1 {
@@ -1465,7 +1516,7 @@ footer p {
     }
 
     .buttons {
-        gap: 10px;
+        gap: 12px;
         flex-direction: column;
         width: 100%;
     }
@@ -1478,6 +1529,7 @@ footer p {
         text-align: center;
         padding: 12px 20px;
         font-size: 14px;
+        box-sizing: border-box;
     }
 }
 
